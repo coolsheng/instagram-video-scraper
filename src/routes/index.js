@@ -1,7 +1,7 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler')
 
-const { getPostId, getVideoUrl } = require('../lib/utils');
+const { getPostId, getVideoUrl, getPostCaption } = require('../lib/utils');
 const { handleBlockedResources } = require('../lib/scraper');
 
 const router = express.Router();
@@ -42,8 +42,9 @@ router.get('/video', asyncHandler(async (req, res, next) => {
 
   // Parse page HTML
   const videoUrl = getVideoUrl(html);
+  const postCaption = getPostCaption(html);
 
-  const response = { videoUrl };
+  const response = { videoUrl, postCaption };
   scraper.setCache(postId, response);
   return res.status(200).send(response);
 

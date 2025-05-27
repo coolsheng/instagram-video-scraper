@@ -53,8 +53,27 @@ const getVideoUrl = (html) => {
   return videoUrl;
 }
 
+const getPostCaption = (html) => {
+  const $ = cheerio.load(html);
+
+  // Check if this post exists
+  const isNotFound = $('main > div > div > span').length > 0;
+  if (isNotFound) {
+    throw new CustomError("This post is private or does not exist", 404);
+  }
+
+  // Check if instagram redirected the page to a login page
+  const isLoginPage = $('input[name="username"]').length > 0;
+  if (isLoginPage) {
+    throw new CustomError("Something went wrong, please try again", 500);
+  }
+
+  return $("meta[property='og:title']").attr("content");
+}
+
 
 module.exports = {
   getPostId,
-  getVideoUrl
+  getVideoUrl,
+  getPostCaption
 }
