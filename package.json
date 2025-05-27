@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "SET NODE_ENV=production && node ./src/bin/www",
+    "start": "node ./src/bin/www",
     "dev": "SET NODE_ENV=development && nodemon ./src/bin/www",
     "test": "jest",
     "test:watch": "jest --watchAll",
