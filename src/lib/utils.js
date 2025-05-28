@@ -44,6 +44,8 @@ const getVideoUrl = (html) => {
     throw new CustomError("Something went wrong, please try again", 500);
   }
 
+  console.log(`bruh: ${$("video")}`);
+
   // Get video metadata
   const videoUrl = $("video").attr("src");
   if (!videoUrl) {
